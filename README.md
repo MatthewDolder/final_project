@@ -11,7 +11,7 @@ obvious by simply viewing or querying the data with relational tools.
 By graphing salary and total stock value, The TOTAL outlier was immediately obvious.  
 I removed this from data_dict
 
-| With Total | Without Total |
+| With Outlier | Without Outlier |
 | ----------- | ----------- | 
 | ![figure 1. Total Outlier](/final_project/figure1.svg) | ![figure 2. Total Outlier Gone](/final_project/figure2.svg) |
 
