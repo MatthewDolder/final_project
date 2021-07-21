@@ -13,7 +13,7 @@ I removed this from data_dict
 
 | With Total | Without Total |
 | ----------- | ----------- | 
-| ![figure 1. Total Outlier](figure1.svg) | ![figure 2. Total Outlier Gone](figure2.svg) |
+| ![figure 1. Total Outlier](/final_project/figure1.svg) | ![figure 2. Total Outlier Gone](/final_project/figure2.svg) |
 
 
 I tried removing some other feature outliers later in my investigation.
@@ -25,9 +25,9 @@ Ultimately, I abandoned these and returned to the full dataset minus 'TOTAL'
 
 | With Outliers | Without Outliers |
 | ----------- | ----------- |
-| ![figure 3. Bonus Outlier](figure3.svg) | ![figure 5. Bonus Outlier Gone](figure5.svg) |
-| ![figure 4. Bonus and Other Outlier](figure4.svg) | ![figure 6. Bonus and Other Outlier Gone](figure6.svg) |
-| ![figure 8. ratio_from Outlier](figure8.svg) | ![figure 9. ratio_from Outlier Gone](figure9.svg) |
+| ![figure 3. Bonus Outlier](/final_project/figure3.svg) | ![figure 5. Bonus Outlier Gone](/final_project/figure5.svg) |
+| ![figure 4. Bonus and Other Outlier](/final_project/figure4.svg) | ![figure 6. Bonus and Other Outlier Gone](/final_project/figure6.svg) |
+| ![figure 8. ratio_from Outlier](/final_project/figure8.svg) | ![figure 9. ratio_from Outlier Gone](/final_project/figure9.svg) |
 
 
 ## Features
