@@ -35,23 +35,25 @@ I created a CSV export to view the data.  I tried filtering, sorting, and some b
 
 I ran the full feature_list through lasso regression. This ruled out a few
 features, but not many.  I abandoned lasso and tried decision tree classifier from 
-the lesson 12 mini-project. I ran this for 50 iterations and counted the results of *feature_importances_*.  
-{'bonus': 11, 'deferred_income': 2, 'to_messages': 1, 'total_stock_value': 2, 'other': 3, 'expenses': 5, 'exercised_stock_options': 2, 'restricted_stock': 1, 'from_messages': 1, 'shared_receipt_with_poi': 1, 'long_term_incentive': 1, 'ratio_to': 1}
+the lesson 12 mini-project. I ran this for 50 iterations and counted the results of *feature_importances_*. 
 
-The three best features were *'bonus','expenses','other'* so I ran some classifiers with this.  
+`{'bonus': 11, 'deferred_income': 2, 'to_messages': 1, 'total_stock_value': 2, 'other': 3, 'expenses': 5, 'exercised_stock_options': 2, 'restricted_stock': 1, 'from_messages': 1, 'shared_receipt_with_poi': 1, 'long_term_incentive': 1, 'ratio_to': 1}`
 
-
+The three best features were *'bonus','expenses','other'*.  
 
 
 ## New/Scaled features
-I created two new features called 'ratio_from','ratio_to'.  I got the idea from the Udacity video in lesson 12. 
-**ratio_from** = from_messages / from_poi_to_this_person
-**ratio_to** = to_messages / from_this_person_to_poi
+I created two new features called 'ratio_from','ratio_to' from the Udacity video in lesson 12. 
+
+        ratio_from = from_messages / from_poi_to_this_person
+
+        ratio_to = to_messages / from_this_person_to_poi
+
 These didn't produce great results.  
 
 I created scaled features for 'bonus','expenses','other' using sklearn MinMaxScaler.
 This allowed me to run a test with LinearSVC without a *ConvergenceWarning*, however
-it did not produce good results. 
+it also did not produce good training results. 
 
 ## Algorithms
 
@@ -71,6 +73,7 @@ Poor tuning can result in grabbing too many false positives or false negatives. 
 desired if we to error on the side of caution one way or the other.
 
 ## Validation
+
 Validation is the process of reserving a random slice of data for testing.  This reduces the amount of the data 
 available for training an algorithm, but it provides some data to verify the results. A classic mistake is to 
 test with a slice of data which is not chosen at random, but is sorted by the result (y).
