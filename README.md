@@ -123,6 +123,7 @@ such as this, the results are good enough to identify data points which may warr
 |/final_project/my_classifier.pkl | output from *dump_classifier_and_data*|
 |/final_project/my_dataset.pkl | output from *dump_classifier_and_data*|
 |/final_project/my_feature_list.pkl | output from *dump_classifier_and_data*|
+|/final_project/poi_id_output.txt | terminal output from poi_id.py |
 
 ## Versions
 - Python 3.8.10
