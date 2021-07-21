@@ -13,7 +13,7 @@ I removed this from data_dict
 
 | With Total | Without Total |
 | ----------- | ----------- | 
-| ![figure 1. Total Outlier](figure1.svg) | ![figure 2. Total Outlier Gone](figure2.svg) |
+| ![figure 1. Total Outlier](/final_project/figure1.svg) | ![figure 2. Total Outlier Gone](figure2.svg) |
 
 
 I tried removing some other feature outliers later in my investigation.
