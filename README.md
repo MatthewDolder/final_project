@@ -13,11 +13,7 @@ I removed this from data_dict
 
 | With Total | Without Total |
 | ----------- | ----------- | 
-<<<<<<< HEAD
 | ![figure 1. Total Outlier](/final_project/figure1.svg) | ![figure 2. Total Outlier Gone](/final_project/figure2.svg) |
-=======
-| ![figure 1. Total Outlier](/final_project/figure1.svg) | ![figure 2. Total Outlier Gone](figure2.svg) |
->>>>>>> 40dae3931e67c5579ab485592bdbc9da58412db2
 
 
 I tried removing some other feature outliers later in my investigation.
@@ -27,7 +23,7 @@ For custom feature ratio_from (explained later), I removed Wincent Kaminski.
 These produced some interesting graphs however, they didn't seem to help in classifier testing.
 Ultimately, I abandoned these and returned to the full dataset minus 'TOTAL' 
 
-| With Outliers | Without Outliers |
+| With Outliers | Without Outliers  |
 | ----------- | ----------- |
 | ![figure 3. Bonus Outlier](/final_project/figure3.svg) | ![figure 5. Bonus Outlier Gone](/final_project/figure5.svg) |
 | ![figure 4. Bonus and Other Outlier](/final_project/figure4.svg) | ![figure 6. Bonus and Other Outlier Gone](/final_project/figure6.svg) |
