@@ -17,11 +17,10 @@ I removed this from data_dict
 
 
 I tried removing some other feature outliers later in my investigation.
-For bonus, I removed Ken Lay and John Lavorato.
-For other, I removed Mark Frevert.
-For custom feature ratio_from (explained later), I removed Wincent Kaminski.
+For **bonus**, I removed Ken Lay and John Lavorato.
+For **other**, I removed Mark Frevert.
+For custom feature **ratio_from** (explained later), I removed Wincent Kaminski.
 These produced some interesting graphs however, they didn't seem to help in classifier testing.
-Ultimately, I abandoned these and returned to the full dataset minus 'TOTAL' 
 
 | With Outliers | Without Outliers  |
 | ----------- | ----------- |
@@ -29,6 +28,7 @@ Ultimately, I abandoned these and returned to the full dataset minus 'TOTAL'
 | ![figure 4. Bonus and Other Outlier](/final_project/figure4.svg) | ![figure 6. Bonus and Other Outlier Gone](/final_project/figure6.svg) |
 | ![figure 8. ratio_from Outlier](/final_project/figure8.svg) | ![figure 9. ratio_from Outlier Gone](/final_project/figure9.svg) |
 
+I abandoned these and returned to the full dataset minus 'TOTAL' 
 
 ## Features
 I created a CSV export to view the data.  I tried filtering, sorting, and some basic calculations in XLS.  I didn't come to any conclusions this way, but it was handy to familiarize myself with the data. 
