@@ -19,17 +19,14 @@
 #%%
 import sys
 import pickle
+import sklearn
 sys.path.append("../tools/")
-from sklearn.model_selection import train_test_split
 from feature_format import featureFormat, targetFeatureSplit
 from tester import dump_classifier_and_data
 from tester import test_classifier
-import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.feature_selection import SelectKBest
-from sklearn.feature_selection import f_classif
 from utilities import replace_nan_with_zero, export_to_csv, simple_scatter, decision_tree_feature_select,run_TEST
-from sklearn import metrics
+from sklearn.linear_model import Lasso
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
@@ -99,16 +96,15 @@ labels, features = targetFeatureSplit(data)
 
 #############################################
 #MD:  Try lasso regression from chapter 12
-from sklearn.linear_model import Lasso
 #Without any parameters, I receve the warning
 #ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations
 #reference: https://stackoverflow.com/questions/20681864/lasso-on-sklearn-does-not-converge
 #reference: https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html
-regression = Lasso(alpha=1.0,max_iter=100, tol=0.0001)
-regression.fit(features,labels)
+#regression = Lasso(alpha=1.0,max_iter=100, tol=0.0001)
+#regression.fit(features,labels)
 #Note:  I had to set max_iter extremely high (100000000) to get rid of the convergence warning
 #and even then, lasso didn't exclude many features. Probably this isn't a good algorithm. 
-print(regression.coef_)
+#print(regression.coef_)
 #[ 3.29466735e-07 -0.00000000e+00  1.04138327e-07  7.69123024e-08
 #  9.57877227e-08 -7.03062089e-08  7.98076753e-07 -2.15786227e-07
 #  2.66892138e-08  9.98700464e-08 -2.32932034e-07 -3.02643671e-07
@@ -299,6 +295,10 @@ test_classifier(clf,my_dataset,features_list)
 ### generates the necessary .pkl files for validating your results.
 
 dump_classifier_and_data(clf, my_dataset, features_list)
+
+#print version:
+print("Python version  ",sys.version)
+print("sklearn version  ",sklearn.__version__)
 
 
 # %%

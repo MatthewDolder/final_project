@@ -33,9 +33,9 @@ I abandoned these and returned to the full dataset minus 'TOTAL'
 ## Features
 I created a CSV export to view the data.  I tried filtering, sorting, and some basic calculations in XLS.  I didn't come to any conclusions this way, but it was handy to familiarize myself with the data. 
 
-I ran the full feature_list through lasso regression. This ruled out a few
-features, but not many.  I abandoned lasso and tried decision tree classifier from 
-the lesson 12 mini-project. I ran this for 50 iterations and counted the results of *feature_importances_*. 
+I ran the full feature_list through lasso regression. This threw a ConvergenceWarning so I commented it out. 
+I abandoned lasso and tried decision tree classifier from the lesson 12 mini-project. 
+I ran this for 50 iterations and counted the results of *feature_importances_*. 
 
 `{'bonus': 11, 'deferred_income': 2, 'to_messages': 1, 'total_stock_value': 2, 'other': 3, 'expenses': 5, 'exercised_stock_options': 2, 'restricted_stock': 1, 'from_messages': 1, 'shared_receipt_with_poi': 1, 'long_term_incentive': 1, 'ratio_to': 1}`
 
@@ -123,6 +123,10 @@ such as this, the results are good enough to identify data points which may warr
 |/final_project/my_classifier.pkl | output from *dump_classifier_and_data*|
 |/final_project/my_dataset.pkl | output from *dump_classifier_and_data*|
 |/final_project/my_feature_list.pkl | output from *dump_classifier_and_data*|
+
+## Versions
+- Python 3.8.10
+- Sklearn 0.24.2
 
 ## References
 
