@@ -99,13 +99,13 @@ GaussianNB() using the same features produced:
         f1: 0.1794871794871795
 
 My two best metrics are shown above using 20 random passes with a 70/30 split of training and testing data. 
-The data is shuffled 20 times to prevent the same results each time.  The metrics are calculated using the total number of true positives, false positives, try negatives, and false negatives.
+The data is shuffled 20 times to prevent the same results each time.  The metrics are calculated using the total number of true positives, false positives, true negatives, and false negatives.
 
 Supervised learning means that we know the source data and we know the answers ahead of time.  Classification 
 means that the answers are true/false rather than a floating point.  By splitting the data into training and testing 
 sets and comparing the results, we have a way to affirm the results.  
 
-The accuracy is close to the same on each meaning the algorithm is correct between 76-80% of the time.  As Katie says
+The accuracy means the algorithm is correct between 76-80% of the time.  As Katie says
 in the Udacity videos, if this were used for a self driving car, it would crash 20% of the time. For an investigation
 such as this, the results are good enough to identify data points which may warrant more research.    
 
