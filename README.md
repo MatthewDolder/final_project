@@ -132,7 +132,6 @@ Precision and Recall are both around 35% for my best metrics.  A higher precisio
 
 |Filename | Description | 
 | ----------- | ----------- |
-|Project Identify Fraud from Enron Email.pdf | Final write-up |
 |README.md  | this document |
 |/final_project/poi_id.py  | Test and output results. Run this. |
 |/final_project/utilities.py  | contains custom functions for repetitive tasks.  |
