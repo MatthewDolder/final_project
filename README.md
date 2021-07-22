@@ -10,7 +10,7 @@ obvious by simply viewing or querying the data with relational tools.
 ## Outliers
 By graphing salary and total stock value, The TOTAL outlier was immediately obvious.  
 I removed this from data_dict
-
+  
 | With Outlier | Without Outlier |
 | ----------- | ----------- | 
 | ![figure 1. Total Outlier](final_project/figure1.svg) | ![figure 2. Total Outlier Gone](final_project/figure2.svg) |
@@ -21,6 +21,8 @@ For **bonus**, I removed Ken Lay and John Lavorato.
 For **other**, I removed Mark Frevert.
 For custom feature **ratio_from** (explained later), I removed Wincent Kaminski.
 These produced some interesting graphs however, they didn't seem to help in classifier testing.
+
+<div style="page-break-after: always; break-after: page;"></div>
 
 | With Outliers | Without Outliers  |
 | ----------- | ----------- |
