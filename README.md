@@ -13,7 +13,7 @@ I removed this from data_dict
 
 | With Outlier | Without Outlier |
 | ----------- | ----------- | 
-| ![figure 1. Total Outlier](/final_project/figure1.svg) | ![figure 2. Total Outlier Gone](/final_project/figure2.svg) |
+| ![figure 1. Total Outlier](final_project/figure1.svg) | ![figure 2. Total Outlier Gone](final_project/figure2.svg) |
 
 
 I tried removing some other feature outliers later in my investigation.
@@ -24,9 +24,9 @@ These produced some interesting graphs however, they didn't seem to help in clas
 
 | With Outliers | Without Outliers  |
 | ----------- | ----------- |
-| ![figure 3. Bonus Outlier](/final_project/figure3.svg) | ![figure 5. Bonus Outlier Gone](/final_project/figure5.svg) |
-| ![figure 4. Bonus and Other Outlier](/final_project/figure4.svg) | ![figure 6. Bonus and Other Outlier Gone](/final_project/figure6.svg) |
-| ![figure 8. ratio_from Outlier](/final_project/figure8.svg) | ![figure 9. ratio_from Outlier Gone](/final_project/figure9.svg) |
+| ![figure 3. Bonus Outlier](final_project/figure3.svg) | ![figure 5. Bonus Outlier Gone](final_project/figure5.svg) |
+| ![figure 4. Bonus and Other Outlier](final_project/figure4.svg) | ![figure 6. Bonus and Other Outlier Gone](final_project/figure6.svg) |
+| ![figure 8. ratio_from Outlier](final_project/figure8.svg) | ![figure 9. ratio_from Outlier Gone](final_project/figure9.svg) |
 
 I abandoned these and returned to the full dataset minus 'TOTAL' 
 
@@ -132,10 +132,11 @@ Precision and Recall are both around 35% for my best metrics.  A higher precisio
 
 |Filename | Description | 
 | ----------- | ----------- |
-|/final_project/README.md  | this document |
+|Project Identify Fraud from Enron Email.pdf | Final write-up |
+|README.md  | this document |
 |/final_project/poi_id.py  | Test and output results. Run this. |
 |/final_project/utilities.py  | contains custom functions for repetitive tasks.  |
-|/final_project/figure[1-9].svg | scatter plots output by utilities.simple_scatter |
+|final_project/figure[1-9].svg | scatter plots output by utilities.simple_scatter |
 |/final_project/final_project_dataset.pkl | import data provided by Udacity |
 |/final_project/enron_features.csv | export of final_project_dataset |
 |/tools/feature_format.py | provided by Udacity |
@@ -145,8 +146,8 @@ Precision and Recall are both around 35% for my best metrics.  A higher precisio
 |/final_project/poi_id_output.txt | terminal output from poi_id.py |
 
 ## Versions
-- Python 3.8.10
-- Sklearn 0.24.2
+- Python version   3.8.9 
+- sklearn version   0.24.2
 
 ## References
 
