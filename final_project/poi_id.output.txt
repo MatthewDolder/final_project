@@ -1,23 +1,97 @@
-{'bonus': 11, 'deferred_income': 2, 'to_messages': 1, 'total_stock_value': 1, 'ratio_to': 2, 'other': 3, 'long_term_incentive': 2, 'exercised_stock_options': 4, 'restricted_stock': 1, 'expenses': 2, 'shared_receipt_with_poi': 1, 'ratio_from': 1}
-GNB: {'accuracy': 0.806060606060606, 'precision': 0.358974358974359, 'recall': 0.11965811965811966, 'f1': 0.1794871794871795, 'scores': {'tp': 14, 'tn': 518, 'fp': 25, 'fn': 103}}
-DTC: {'accuracy': 0.7712121212121212, 'precision': 0.35344827586206895, 'recall': 0.3504273504273504, 'f1': 0.35193133047210295, 'scores': {'tp': 41, 'tn': 468, 'fp': 75, 'fn': 76}}
-SVC_rbf - auto: {'accuracy': 0.8227272727272728, 'precision': 0, 'recall': 0, 'f1': 0, 'scores': {'tp': 0, 'tn': 543, 'fp': 0, 'fn': 117}}
-SVC_rbf - scale: {'accuracy': 0.7803030303030303, 'precision': 0.325, 'recall': 0.2222222222222222, 'f1': 0.2639593908629442, 'scores': {'tp': 26, 'tn': 489, 'fp': 54, 'fn': 91}}
-GNB: {'accuracy': 0.843939393939394, 'precision': 0.33962264150943394, 'recall': 0.20930232558139536, 'f1': 0.2589928057553957, 'scores': {'tp': 18, 'tn': 539, 'fp': 35, 'fn': 68}}
-DTC: {'accuracy': 0.8015151515151515, 'precision': 0.2972972972972973, 'recall': 0.38372093023255816, 'f1': 0.33502538071065996, 'scores': {'tp': 33, 'tn': 496, 'fp': 78, 'fn': 53}}
+Run Decision Tree Classifer to choose best features: 
+{'bonus': 11, 'deferred_income': 2, 'to_messages': 1, 'total_stock_value': 2, 'expenses': 4, 'restricted_stock': 2, 'exercised_stock_options': 4, 'ratio_to': 1, 'from_poi_to_this_person': 2, 'other': 2, 'shared_receipt_with_poi': 1, 'long_term_incentive': 1} 
+
+
+Try the three best features with GaussianNB()
+GNB: {'accuracy': 0.806060606060606, 'precision': 0.358974358974359, 'recall': 0.11965811965811966, 'f1': 0.1794871794871795, 'scores': {'tp': 14, 'tn': 518, 'fp': 25, 'fn': 103}} 
+
+
+Try Decision Tree Classifer with 3 best features
+DTC: {'accuracy': 0.7696969696969697, 'precision': 0.35772357723577236, 'recall': 0.37606837606837606, 'f1': 0.36666666666666664, 'scores': {'tp': 44, 'tn': 464, 'fp': 79, 'fn': 73}} 
+
+
+Try SVC(kernel='rbf',C=1000,gamma='auto') with 3 best features
+SVC_rbf - auto: {'accuracy': 0.8227272727272728, 'precision': 0, 'recall': 0, 'f1': 0, 'scores': {'tp': 0, 'tn': 543, 'fp': 0, 'fn': 117}} 
+
+
+Try SVC(kernel='rbf',C=1000,gamma='scale') with 3 best features
+SVC_rbf - scale: {'accuracy': 0.7803030303030303, 'precision': 0.325, 'recall': 0.2222222222222222, 'f1': 0.2639593908629442, 'scores': {'tp': 26, 'tn': 489, 'fp': 54, 'fn': 91}} 
+
+
+Try SVC(kernel='linear') with 3 best features
+Note: this ran for a long time without finishing.  My guess is because the features are not scaled and they are     failing to converge.  I commented this out. 
+
+
+Try LinearSVC() with 3 best features
+Note: this ran quickly, but threw converge errors.  Commenting this out. 
+
+
+Test GaussianNB() with outliers removed.
+GNB: {'accuracy': 0.843939393939394, 'precision': 0.33962264150943394, 'recall': 0.20930232558139536, 'f1': 0.2589928057553957, 'scores': {'tp': 18, 'tn': 539, 'fp': 35, 'fn': 68}} 
+
+
+Test DTC with outliers removed.
+DTC: {'accuracy': 0.8075757575757576, 'precision': 0.3153153153153153, 'recall': 0.4069767441860465, 'f1': 0.3553299492385787, 'scores': {'tp': 35, 'tn': 498, 'fp': 76, 'fn': 51}} 
+
+
+Test custom features along with bonus with GNB and DTC
+GNB - ratio - small: {'accuracy': 0.825, 'precision': 0.38596491228070173, 'recall': 0.2391304347826087, 'f1': 0.29530201342281875, 'scores': {'tp': 22, 'tn': 473, 'fp': 35, 'fn': 70}}
+DTC - ratio - small: {'accuracy': 0.7833333333333333, 'precision': 0.27906976744186046, 'recall': 0.2608695652173913, 'f1': 0.2696629213483146, 'scores': {'tp': 24, 'tn': 446, 'fp': 62, 'fn': 68}} 
+
+
+Test custom features along with bonus with GNB and DTC - outlier removed
 GNB - ratio - small: {'accuracy': 0.845, 'precision': 0.4318181818181818, 'recall': 0.21839080459770116, 'f1': 0.29007633587786263, 'scores': {'tp': 19, 'tn': 488, 'fp': 25, 'fn': 68}}
-DTC - ratio - small: {'accuracy': 0.7583333333333333, 'precision': 0.22115384615384615, 'recall': 0.26436781609195403, 'f1': 0.2408376963350785, 'scores': {'tp': 23, 'tn': 432, 'fp': 81, 'fn': 64}}
-LinearSVC: {'accuracy': 0.8212121212121212, 'precision': 0.4444444444444444, 'recall': 0.03418803418803419, 'f1': 0.0634920634920635, 'scores': {'tp': 4, 'tn': 538, 'fp': 5, 'fn': 113}}
-{'var_smoothing': 0.1}
-GNB - var_smoothing=1: {'accuracy': 0.8121212121212121, 'precision': 0.3870967741935484, 'recall': 0.10256410256410256, 'f1': 0.16216216216216214, 'scores': {'tp': 12, 'tn': 524, 'fp': 19, 'fn': 105}}
-{'min_samples_split': 5, 'splitter': 'best'}
-DTC: {'accuracy': 0.7863636363636364, 'precision': 0.3723404255319149, 'recall': 0.29914529914529914, 'f1': 0.33175355450236965, 'scores': {'tp': 35, 'tn': 484, 'fp': 59, 'fn': 82}}
+DTC - ratio - small: {'accuracy': 0.7566666666666667, 'precision': 0.22429906542056074, 'recall': 0.27586206896551724, 'f1': 0.24742268041237117, 'scores': {'tp': 24, 'tn': 430, 'fp': 83, 'fn': 63}} 
+
+
+Test LinearSVC() with scaled features.
+LinearSVC: {'accuracy': 0.8212121212121212, 'precision': 0.4444444444444444, 'recall': 0.03418803418803419, 'f1': 0.0634920634920635, 'scores': {'tp': 4, 'tn': 538, 'fp': 5, 'fn': 113}} 
+
+
+Use GridSearchCV to find best parameter for GaussianNB:
+{'var_smoothing': 0.1} 
+
+
+Test GNB with var_smoothing=0.1:
+GNB - var_smoothing=1: {'accuracy': 0.8121212121212121, 'precision': 0.3870967741935484, 'recall': 0.10256410256410256, 'f1': 0.16216216216216214, 'scores': {'tp': 12, 'tn': 524, 'fp': 19, 'fn': 105}} 
+
+
+Use GridSearchCV to find best parameter for DTC:
+{'min_samples_split': 5, 'splitter': 'random'} 
+
+
+Test DTC with min_samples_split=5
+DTC: {'accuracy': 0.7772727272727272, 'precision': 0.34375, 'recall': 0.28205128205128205, 'f1': 0.30985915492957744, 'scores': {'tp': 33, 'tn': 480, 'fp': 63, 'fn': 84}} 
+
+
+Use GridSearchCV to find best parameter for SVC:
 {'gamma': 1}
-SVC_rbf - gamma 1: {'accuracy': 0.8227272727272728, 'precision': 0, 'recall': 0, 'f1': 0, 'scores': {'tp': 0, 'tn': 543, 'fp': 0, 'fn': 117}}
-DTC: {'accuracy': 0.7863636363636364, 'precision': 0.39285714285714285, 'recall': 0.37606837606837606, 'f1': 0.3842794759825327, 'scores': {'tp': 44, 'tn': 475, 'fp': 68, 'fn': 73}}
+Test SVC with gamma=1
+SVC_rbf - gamma 1: {'accuracy': 0.8227272727272728, 'precision': 0, 'recall': 0, 'f1': 0, 'scores': {'tp': 0, 'tn': 543, 'fp': 0, 'fn': 117}} 
+
+
+
+
+
+
+Best Score.  DTC() with 'bonus','expenses','other'
+DTC: {'accuracy': 0.7742424242424243, 'precision': 0.3644067796610169, 'recall': 0.36752136752136755, 'f1': 0.36595744680851067, 'scores': {'tp': 43, 'tn': 468, 'fp': 75, 'fn': 74}} 
+
+
+
+Metrics:
+dataset length  145
+true labels: 18
+false labels: 92
+features used: 3
+*bonus* empty:  0.4413793103448276
+*expenses* empty:  0.35172413793103446
+*other* empty:  0.36551724137931035
+
+
 DecisionTreeClassifier()
-	Accuracy: 0.76518	Precision: 0.34666	Recall: 0.32950	F1: 0.33786	F2: 0.33279
-	Total predictions: 11000	True positives:  659	False positives: 1242	False negatives: 1341	True negatives: 7758
+	Accuracy: 0.76645	Precision: 0.34971	Recall: 0.33100	F1: 0.34010	F2: 0.33458
+	Total predictions: 11000	True positives:  662	False positives: 1231	False negatives: 1338	True negatives: 7769
 
 Python version   3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)]
 sklearn version   0.24.2

@@ -43,13 +43,20 @@ The three best features were *'bonus','expenses','other'*.
 
 
 ## New/Scaled features
-I created two new features called 'ratio_from','ratio_to' from the Udacity video in lesson 12. 
+I created two new features called 'ratio_from','ratio_to' suggested in the Udacity video in lesson 12. These show the ratio of total emails to the number
+of emails to or from a POI.  I like these features because they show a direct 
+connection to a known POI. 
 
         ratio_from = from_messages / from_poi_to_this_person
 
         ratio_to = to_messages / from_this_person_to_poi
 
-These didn't produce great results.  
+The new features didn't produce good recall however
+Using GaussianNB and Bonus, ratio_from, ratio_to, I found: 
+        
+        accuracy: 0.825
+        precision: 0.38596491228070173
+        recall: 0.2391304347826087
 
 I created scaled features for 'bonus','expenses','other' using sklearn MinMaxScaler.
 This allowed me to run a test with LinearSVC without a *ConvergenceWarning*, however
@@ -109,6 +116,18 @@ The accuracy means the algorithm is correct between 76-80% of the time.  As Kati
 in the Udacity videos, if this were used for a self driving car, it would crash 20% of the time. For an investigation
 such as this, the results are good enough to identify data points which may warrant more research.    
 
+Precision and Recall are both around 35% for my best metrics.  A higher precision would mean that each POI flagged is truly a POI, not a false posivite.  A higher recall would mean that we accurately catch the POI's and don't let any get past.  
+
+- dataset length:  145
+- true labels: 18
+- false labels: 92
+- features used: 3
+
+        bonus: 44% empty values
+        expenses: 35% empty values
+        other: 36% empty values
+
+
 ## Files
 
 |Filename | Description | 
@@ -135,6 +154,7 @@ such as this, the results are good enough to identify data points which may warr
 - https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html
 - https://www.geeksforgeeks.org/python-save-list-to-csv/
 - https://towardsdatascience.com/metrics-to-evaluate-your-machine-learning-algorithm-f10ba6e38234
+- https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
 - Udacity videos and mini projects from the Data Analyst nano degree project, module 7 Intro to Machine Learning
 
 

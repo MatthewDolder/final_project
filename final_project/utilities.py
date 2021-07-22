@@ -5,9 +5,10 @@
 #Contains functions to complete tedious tasks
 ########################################
 
+import sys
+sys.path.append("../tools/")
 import csv
 import matplotlib.pyplot as plt
-from feature_format import featureFormat
 import numpy as np
 from sklearn import tree
 from sklearn.model_selection import train_test_split
@@ -46,6 +47,7 @@ def export_to_csv(filename,data_dict,columns):
             #print(onerow)
             write.writerow(onerow)
     file.close
+
 
 def simple_scatter(data_dict,feature_list,file_name):
     #MD:  accepts data_dictionary, feature_list [poi,x,y], file_name and creates 
@@ -163,3 +165,15 @@ def run_TEST(clf,data_dict,feature_list, test_iter = 20):
             'f1':f1, \
             'scores':scores})
 
+def count_zeros(data_dict,feature_name):
+    #MD:  interates the data_dictionary and returns the number of zeros 
+    #for a single feature. 
+
+    cnt = 0
+
+    for d in data_dict:
+        if replace_nan_with_zero(data_dict[d][feature_name]) == 0:
+            cnt +=1 
+    return cnt
+
+        

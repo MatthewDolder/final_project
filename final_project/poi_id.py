@@ -25,7 +25,8 @@ from feature_format import featureFormat, targetFeatureSplit
 from tester import dump_classifier_and_data
 from tester import test_classifier
 import numpy as np
-from utilities import replace_nan_with_zero, export_to_csv, simple_scatter, decision_tree_feature_select,run_TEST
+from utilities import replace_nan_with_zero, export_to_csv
+from utilities import simple_scatter, decision_tree_feature_select,run_TEST,count_zeros
 from sklearn.linear_model import Lasso
 from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
@@ -33,7 +34,7 @@ from sklearn.svm import SVC
 from sklearn.svm import LinearSVC
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import GridSearchCV
-
+#%%
 #################
 
 ### Task 1: Select what features you'll use.
@@ -113,45 +114,55 @@ labels, features = targetFeatureSplit(data)
 # -1.09734405e-04]
 #I'm setting max_iter back to a low number to improve runtime.  
 #############################################
-
+#%%
 #MD:  Try Decision Tree from chapter 12 mini project
-print(decision_tree_feature_select(features,labels,features_list))
+print ("Run Decision Tree Classifer to choose best features: ")
+print(decision_tree_feature_select(features,labels,features_list),'\n\n')
 #Results show Bonus, Expenses, Other as the best features. 
 #{'bonus': 11, 'deferred_income': 2, 'to_messages': 1, 'total_stock_value': 2, 'other': 3, 'expenses': 5, 'exercised_stock_options': 2, 'restricted_stock': 1, 'from_messages': 1, 'shared_receipt_with_poi': 1, 'long_term_incentive': 1, 'ratio_to': 1}
 #%%
 
 #MD:  Try some classifiers with default params on these 3 features. 
+print("Try the three best features with GaussianNB()")
 clf=GaussianNB()
-print('GNB:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']))
+print('GNB:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']),'\n\n')
 #GaussianNB is disappointing.  Recall is low. 
 #GNB: {'accuracy': 0.806060606060606, 'precision': 0.358974358974359, 'recall': 0.11965811965811966, 'f1': 0.1794871794871795, 'scores': {'tp': 14, 'tn': 518, 'fp': 25, 'fn': 103}}
 #%%
 clf=DecisionTreeClassifier()
 #Try DecisionTree
-print('DTC:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']))
+print("Try Decision Tree Classifer with 3 best features")
+print('DTC:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']),'\n\n')
 #Decision Tree has lower accuracy, but better precision and recall.
 #DTC: {'accuracy': 0.7681818181818182, 'precision': 0.3474576271186441, 'recall': 0.3504273504273504, 'f1': 0.3489361702127659, 'scores': {'tp': 41, 'tn': 466, 'fp': 77, 'fn': 76}}
 #%%
 
 #Try SVC
 clf = SVC(kernel='rbf',C=1000,gamma='auto')
-print('SVC_rbf - auto:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']))
+print("Try SVC(kernel='rbf',C=1000,gamma='auto') with 3 best features")
+print('SVC_rbf - auto:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']),'\n\n')
 #SVC with gamma='auto' is a fail bad
 #SVC_rbf - auto: {'accuracy': 0.8227272727272728, 'precision': 0, 'recall': 0, 'f1': 0, 'scores': {'tp': 0, 'tn': 543, 'fp': 0, 'fn': 117}}
 
 clf = SVC(kernel='rbf',C=1000,gamma='scale')
-print('SVC_rbf - scale:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']))
+print("Try SVC(kernel='rbf',C=1000,gamma='scale') with 3 best features")
+print('SVC_rbf - scale:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']),'\n\n')
 #gamma = scale is better
 #SVC_rbf - scale: {'accuracy': 0.7803030303030303, 'precision': 0.325, 'recall': 0.2222222222222222, 'f1': 0.2639593908629442, 'scores': {'tp': 26, 'tn': 489, 'fp': 54, 'fn': 91}}
 
 #try linear
 #clf = SVC(kernel='linear')
+print("Try SVC(kernel='linear') with 3 best features")
 #print('SVC_linear:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']))
+print("Note: this ran for a long time without finishing.  My guess is because the features are not scaled and they are \
+    failing to converge.  I commented this out.",'\n\n')
 #linear kernel is very slow.  I had to cancel.  Commenting this out so it doesn't crash. 
 
 #try linearSVC
 #clf = LinearSVC()
+print("Try LinearSVC() with 3 best features")
 #print('LinearSVC:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']))
+print("Note: this ran quickly, but threw converge errors.  Commenting this out.",'\n\n')
 #ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
 #I need to scale the values to use Linear.  I'll come back to this later.  Commenting out so it doesn't show warnings 
 
@@ -170,17 +181,26 @@ simple_scatter(data_small,['poi','bonus','other'],'figure6.svg')
 # I do see some groupings.  Let's try some classifiers on the smaller dataset. 
 
 clf=GaussianNB()
-print('GNB:',run_TEST(clf,data_small,['poi','bonus','expenses','other']))
+print("Test GaussianNB() with outliers removed.")
+print('GNB:',run_TEST(clf,data_small,['poi','bonus','expenses','other']),'\n\n')
 #GNB: {'accuracy': 0.843939393939394, 'precision': 0.33962264150943394, 'recall': 0.20930232558139536, 'f1': 0.2589928057553957, 'scores': {'tp': 18, 'tn': 539, 'fp': 35, 'fn': 68}}
 #recall improved from GNB above, but not good enough.  
 
+
 clf=DecisionTreeClassifier()
-print('DTC:',run_TEST(clf,data_small,['poi','bonus','expenses','other']))
+print("Test DTC with outliers removed.")
+print('DTC:',run_TEST(clf,data_small,['poi','bonus','expenses','other']),'\n\n')
 #DTC: {'accuracy': 0.8090909090909091, 'precision': 0.3181818181818182, 'recall': 0.4069767441860465, 'f1': 0.35714285714285715, 'scores': {'tp': 35, 'tn': 499, 'fp': 75, 'fn': 51}}
 #precision when down after removing "outliers"
 
 
 #I would like to try graphing the new features created above.  Even though Decision tree classifer didn't find them useful features. 
+clf=GaussianNB()
+print("Test custom features along with bonus with GNB and DTC")
+print('GNB - ratio - small:',run_TEST(clf,data_dict,['poi','bonus','ratio_from','ratio_to']))
+clf=DecisionTreeClassifier()
+print('DTC - ratio - small:',run_TEST(clf,data_dict,['poi','bonus','ratio_from','ratio_to']),'\n\n')
+
 simple_scatter(data_dict,['poi','bonus','ratio_to'],'figure7.svg')
 simple_scatter(data_dict,['poi','bonus','ratio_from'],'figure8.svg')
 #There is an outlier in ratio_from.  Looking at the XLS, this is KAMINSKI WINCENTY J
@@ -189,10 +209,12 @@ data_small = data_dict.copy()
 del data_small['KAMINSKI WINCENTY J']  #ratio_from outlier
 simple_scatter(data_small,['poi','bonus','ratio_from'],'figure9.svg')
 #I don't see much of a grouping.  
+
+print("Test custom features along with bonus with GNB and DTC - outlier removed")
 clf=GaussianNB()
 print('GNB - ratio - small:',run_TEST(clf,data_small,['poi','bonus','ratio_from','ratio_to']))
 clf=DecisionTreeClassifier()
-print('DTC - ratio - small:',run_TEST(clf,data_small,['poi','bonus','ratio_from','ratio_to']))
+print('DTC - ratio - small:',run_TEST(clf,data_small,['poi','bonus','ratio_from','ratio_to']),'\n\n')
 #GNB - ratio - small: {'accuracy': 0.845, 'precision': 0.4318181818181818, 'recall': 0.21839080459770116, 'f1': 0.29007633587786263, 'scores': {'tp': 19, 'tn': 488, 'fp': 25, 'fn': 68}}
 #DTC - ratio - small: {'accuracy': 0.7466666666666667, 'precision': 0.19626168224299065, 'recall': 0.2413793103448276, 'f1': 0.21649484536082475, 'scores': {'tp': 21, 'tn': 427, 'fp': 86, 'fn': 66}}
 
@@ -228,13 +250,16 @@ features_list.append('scaled_bon')
 features_list.append('scaled_exp')
 features_list.append('scaled_otr')
 
+
+print("Test LinearSVC() with scaled features.")
 clf = LinearSVC()
-print('LinearSVC:',run_TEST(clf,data_dict,['poi','scaled_bon','scaled_exp','scaled_otr']))
+print('LinearSVC:',run_TEST(clf,data_dict,['poi','scaled_bon','scaled_exp','scaled_otr']),'\n\n')
 #LinearSVC: {'accuracy': 0.8212121212121212, 'precision': 0.4444444444444444, 'recall': 0.03418803418803419, 'f1': 0.0634920634920635, 'scores': {'tp': 4, 'tn': 538, 'fp': 5, 'fn': 113}}
 #it runs now, but recall is very low.  
 
 
 #Can I tune for better results? 
+#reference: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
 data=featureFormat(data_dict, ['poi','bonus','expenses','other'], sort_keys = True)
 labels, features = targetFeatureSplit(data)
 #reference: Lesson 14 in Udacity
@@ -243,9 +268,11 @@ parameters = {'var_smoothing':[1e-1, 1e-20]}
 svr = GaussianNB()
 clf = GridSearchCV(svr, parameters)
 clf.fit(features, labels)
-print(clf.best_params_)  #{'var_smoothing': 0.1}
+print("Use GridSearchCV to find best parameter for GaussianNB:")
+print(clf.best_params_,'\n\n')  #{'var_smoothing': 0.1}
 clf = GaussianNB(var_smoothing=0.1)
-print('GNB - var_smoothing=1:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']))
+print("Test GNB with var_smoothing=0.1:")
+print('GNB - var_smoothing=1:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']),'\n\n')
 #recal is sill very low: 
 #GNB - var_smoothing=1: {'accuracy': 0.8121212121212121, 'precision': 0.3870967741935484, 'recall': 0.10256410256410256, 'f1': 0.16216216216216214, 'scores': {'tp': 12, 'tn': 524, 'fp': 19, 'fn': 105}}
 
@@ -255,9 +282,11 @@ parameters = {'splitter':['best', 'random'],'min_samples_split':[2,5]}
 svr = DecisionTreeClassifier()
 clf = GridSearchCV(svr, parameters)
 clf.fit(features, labels)
-print(clf.best_params_)  #{'min_samples_split': 5, 'splitter': 'best'}
+print("Use GridSearchCV to find best parameter for DTC:")
+print(clf.best_params_,'\n\n')  #{'min_samples_split': 5, 'splitter': 'best'}
+print("Test DTC with min_samples_split=5")
 clf=DecisionTreeClassifier(min_samples_split=5, splitter='best')
-print('DTC:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']))
+print('DTC:',run_TEST(clf,data_dict,['poi','bonus','expenses','other']),'\n\n')
 #About the same as DTC without tuning
 #DTC: {'accuracy': 0.7803030303030303, 'precision': 0.3627450980392157, 'recall': 0.3162393162393162, 'f1': 0.3378995433789954, 'scores': {'tp': 37, 'tn': 478, 'fp': 65, 'fn': 80}}
 
@@ -268,21 +297,41 @@ parameters = {'gamma':[1, 1000]}
 svr = SVC(kernel='rbf')
 clf = GridSearchCV(svr, parameters)
 clf.fit(features, labels)
+print("Use GridSearchCV to find best parameter for SVC:")
 print(clf.best_params_)  #{'gamma': 1}
 clf=SVC(kernel='rbf',gamma=1)
-print('SVC_rbf - gamma 1:',run_TEST(clf,data_dict, ['poi','scaled_bon','scaled_exp','scaled_otr']))
+print("Test SVC with gamma=1")
+print('SVC_rbf - gamma 1:',run_TEST(clf,data_dict, ['poi','scaled_bon','scaled_exp','scaled_otr']),'\n\n')
 #total bust: 
 #SVC_rbf - gamma 1: {'accuracy': 0.8227272727272728, 'precision': 0, 'recall': 0, 'f1': 0, 'scores': {'tp': 0, 'tn': 543, 'fp': 0, 'fn': 117}}
-#%%
+
 ############Final Output#################
 #MD: I had the best score with DTC and features ['poi','bonus','expenses','other']
 my_dataset = data_dict
+print("\n")
 features_list = ['poi','bonus','expenses','other']
-
+print("\n")
 clf=DecisionTreeClassifier()
-print('DTC:',run_TEST(clf,my_dataset,features_list))
+print("Best Score.  DTC() with 'bonus','expenses','other'")
+print('DTC:',run_TEST(clf,my_dataset,features_list),'\n\n')
 #DTC: {'accuracy': 0.7681818181818182, 'precision': 0.3474576271186441, 'recall': 0.3504273504273504, 'f1': 0.3489361702127659, 'scores': {'tp': 41, 'tn': 466, 'fp': 77, 'fn': 76}}
 
+
+#%%
+#print data metrics
+data=featureFormat(my_dataset, features_list, sort_keys = True)
+labels, features = targetFeatureSplit(data)
+print("\nMetrics:")
+print("dataset length ",len(my_dataset))
+print("true labels:",labels.count(1.0))
+print("false labels:",labels.count(0.0))
+print("features used:",len(features_list)-1)
+print("*bonus* empty: ",count_zeros(my_dataset,'bonus')/len(my_dataset))
+print("*expenses* empty: ",count_zeros(my_dataset,'expenses')/len(my_dataset))
+print("*other* empty: ",count_zeros(my_dataset,'other')/len(my_dataset))
+print("\n")
+#number of features used
+#%%
 test_classifier(clf,my_dataset,features_list)
 #DecisionTreeClassifier()
 #	Accuracy: 0.76455	Precision: 0.34587	Recall: 0.33100	F1: 0.33827	F2: 0.33387
