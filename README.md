@@ -150,6 +150,7 @@ Precision and Recall are both around 35% for my best metrics.  A higher precisio
 
 ## References
 
+- https://github.com/oforero/ud120-projects/tree/python-3.8
 - https://stackoverflow.com/questions/20681864/lasso-on-sklearn-does-not-converge
 - https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html
 - https://www.geeksforgeeks.org/python-save-list-to-csv/
