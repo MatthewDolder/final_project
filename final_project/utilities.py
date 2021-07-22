@@ -111,9 +111,7 @@ def run_TEST(clf,data_dict,feature_list, test_iter = 20):
     #accepts data_dictionary and feature list
     #returns accuracy, precision, & recall
     ##MD:  I had trouble getting precision and recall from sklearn on a single run which came close to test_classifer
-    #Instead I'm creating multiple runs and calculating precision and recall myself.  
-    #I'm using accuracy from the last run rather than computing an average accuracy over the runs. 
-    #seems to be good enough. 
+    #Instead I'm creating multiple runs and calculating metrics myself.  
     ######################
     data=featureFormat(data_dict, feature_list, sort_keys = True)
     labels, features = targetFeatureSplit(data)
