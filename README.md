@@ -90,7 +90,20 @@ test with a slice of data which is not chosen at random, but is sorted by the re
 I had a lot of trouble with validation trying to use a single random sample for 
 each test.  My results were far from *test_classifier*. I fixed this by running each test
 20 times and as I countdown to 0, I pass the interator to the random_state parameter
-in train_test_split.  This produces repeatable resuilts which aren't too far off *test_classifier*. See utilities.run_TEST.  
+in train_test_split.  This produces repeatable results which aren't too far off *test_classifier*. See utilities.run_TEST.  
+
+The Udacity provided test_classifier procedure uses StratifiedKFold cross validation[1]. Rows in which the features are all zeros are
+removed by *featureFormat*.  In my case, leaving 110 rows.  10% of those are reserved for testing.  The 
+train/test split is repeated 1,000 times by *StratifiedShuffleSplit* creating 1,000 random buckets or "folds". 
+The chosen classifer is then run on each fold and the average calculated. *StratifiedShuffleSplit* uses an array index 
+to create the buckets rather than actual values which helps with performance and memory if a lot of features are used.
+
+Even though the buckets are random, stratified split maintains the same number of classes in each bucket.  In my case, 
+there were two POIs and 9 non-POIs in every label_train. This is done to prevent all POIs from ending up in the test set skewing the results to failure.  
+The Enron dataset has a small number of POIs, making this more important than if we had a 50/50 split of true/false labels.  
+
+[1] reference: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html
+
 
 ## Metrics
 DecisionTreeClassifier() using ['poi','bonus','expenses','other'] produced the following metrics by my calculations: 
@@ -159,6 +172,7 @@ Precision and Recall are both around 35% for my best metrics.  A higher precisio
 - https://www.geeksforgeeks.org/python-save-list-to-csv/
 - https://towardsdatascience.com/metrics-to-evaluate-your-machine-learning-algorithm-f10ba6e38234
 - https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
+- https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html
 - Udacity videos and mini projects from the Data Analyst nano degree project, module 7 Intro to Machine Learning
 
 
